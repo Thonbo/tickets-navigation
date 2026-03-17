@@ -1,0 +1,1074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LEGO Masters Academy — LEGO House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Reset & base ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:      #FFD500;
+      --yellow-bg:   #FFF9E6;
+      --yellow-mid:  #FFEBB3;
+      --yellow-dark: #8A6500;
+      --red:         #E3000B;
+      --blue:        #006DB7;
+      --green:       #00A850;
+      --bg:          #F5F5F0;
+      --card:        #FFFFFF;
+      --text:        #1A1A1A;
+      --muted:       #666666;
+      --border:      #E8E8E4;
+      --shadow:      0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.06);
+      --shadow-hover: 0 4px 8px rgba(0,0,0,.1), 0 12px 24px rgba(0,0,0,.08);
+      --radius:      12px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Skip link ─────────────────────────────────────────────────────── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      background: var(--text);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 1000;
+      text-decoration: none;
+      transition: top .15s;
+    }
+    .skip-link:focus { top: 8px; }
+
+    /* ─── Site header ───────────────────────────────────────────────────── */
+    .site-header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      background: var(--yellow);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: -.5px;
+      text-decoration: none;
+    }
+
+    .site-header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .site-header p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    /* ─── Back navigation bar ───────────────────────────────────────────── */
+    .back-bar {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+
+    .back-bar-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      height: 48px;
+      display: flex;
+      align-items: center;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .15s;
+    }
+
+    .back-link:hover { color: var(--text); }
+
+    .back-link:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    .back-link svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ─── Main layout ───────────────────────────────────────────────────── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ─── Hero area ─────────────────────────────────────────────────────── */
+    .hero {
+      padding: 48px 0 0;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: clamp(28px, 5vw, 44px);
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.1;
+      letter-spacing: -.02em;
+    }
+
+    .hero-subtitle {
+      font-size: 18px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-top: 8px;
+    }
+
+    .hero-desc {
+      font-size: 16px;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-top: 16px;
+      max-width: 700px;
+    }
+
+    /* ─── Key info strip ────────────────────────────────────────────────── */
+    .info-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+      padding: 20px 24px;
+      background: var(--yellow-bg);
+      border: 1px solid var(--yellow-mid);
+      border-radius: var(--radius);
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text);
+      padding: 4px 0;
+      min-width: 0;
+    }
+
+    .info-item-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .info-sep {
+      width: 1px;
+      height: 20px;
+      background: var(--yellow-mid);
+      flex-shrink: 0;
+      align-self: center;
+    }
+
+    @media (max-width: 639px) {
+      .info-strip {
+        flex-direction: column;
+        gap: 12px;
+      }
+      .info-sep { display: none; }
+    }
+
+    /* ─── Language filter ───────────────────────────────────────────────── */
+    .filter-section {
+      margin-top: 40px;
+    }
+
+    .filter-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 10px;
+    }
+
+    .filter-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .filter-pill {
+      display: inline-flex;
+      align-items: center;
+      height: 36px;
+      padding: 0 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background .15s ease-out, color .15s ease-out;
+      white-space: nowrap;
+      border: 1.5px solid var(--border);
+    }
+
+    .filter-pill:hover {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .filter-pill.active {
+      background: var(--yellow);
+      color: var(--text);
+      font-weight: 600;
+      border-color: var(--yellow);
+    }
+
+    .filter-pill:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+    }
+
+    /* ─── Levels section ────────────────────────────────────────────────── */
+    .levels-section {
+      margin-top: 40px;
+    }
+
+    /* ─── Progression list ──────────────────────────────────────────────── */
+    .progression-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Connector between levels */
+    .level-connector {
+      display: flex;
+      align-items: center;
+      padding: 0 0 0 28px;
+      height: 32px;
+    }
+
+    .level-connector-line {
+      width: 2px;
+      height: 32px;
+      background: var(--yellow);
+      border-radius: 1px;
+      opacity: 0.6;
+    }
+
+    /* ─── Level card ────────────────────────────────────────────────────── */
+    .level-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--yellow);
+      overflow: hidden;
+      transition: box-shadow .2s ease-out;
+    }
+
+    .level-card:hover {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .level-card.coming-soon {
+      opacity: 0.55;
+      border-left-color: #CCC;
+    }
+
+    .level-card-header {
+      padding: 28px 28px 24px;
+    }
+
+    .level-card-top {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+    }
+
+    /* Level number badge */
+    .level-num {
+      width: 56px;
+      height: 56px;
+      background: var(--yellow);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text);
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .level-num.l2 { background: #FFB300; }
+    .level-num.l3 { background: #FF8C00; }
+    .level-num.l4 { background: #CCCCCC; color: #666; }
+
+    .level-card-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .level-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .level-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .level-subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .coming-soon-badge {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      padding: 0 12px;
+      border-radius: 100px;
+      background: #EBEBEB;
+      color: #666;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      margin-top: 8px;
+    }
+
+    .level-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-top: 16px;
+    }
+
+    /* What you'll do list */
+    .level-details {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    @media (min-width: 640px) {
+      .level-details {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .level-detail-block {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .level-detail-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .level-feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .level-feature-list li {
+      font-size: 14px;
+      color: var(--text);
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .level-feature-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 8px;
+      height: 8px;
+      background: var(--yellow);
+      border-radius: 2px;
+    }
+
+    .take-home-text {
+      font-size: 14px;
+      color: var(--text);
+      font-weight: 500;
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .take-home-text::before {
+      content: '🎁';
+      position: absolute;
+      left: 0;
+      top: 0;
+      font-size: 13px;
+    }
+
+    /* ─── Session rows ───────────────────────────────────────────────────── */
+    .sessions-block {
+      border-top: 1px solid var(--border);
+      padding: 20px 28px 24px;
+      background: #F9F9F5;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .sessions-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .session-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--card);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      transition: box-shadow .15s ease-out, border-color .15s;
+    }
+
+    .session-row:hover {
+      box-shadow: 0 2px 8px rgba(0,0,0,.07);
+      border-color: #D8D8D4;
+    }
+
+    .session-lang {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .session-flag {
+      font-size: 18px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .session-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .session-price-suffix {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      margin-left: 2px;
+    }
+
+    /* ─── CTA button ────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      padding: 0 24px;
+      border-radius: 100px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: transform .15s ease-out, box-shadow .15s ease-out;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+    }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--text);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255,213,0,.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg);
+      border-color: #CCC;
+    }
+
+    .btn-sm {
+      height: 40px;
+      padding: 0 18px;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    /* ─── Annual pass callout ───────────────────────────────────────────── */
+    .annual-callout {
+      margin-top: 48px;
+      background: var(--yellow-bg);
+      border: 1px solid var(--yellow-mid);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .annual-callout-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .annual-callout-text {
+      flex: 1;
+    }
+
+    .annual-callout-text strong {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .annual-callout-text p {
+      font-size: 14px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ─── Bottom back link ──────────────────────────────────────────────── */
+    .bottom-back {
+      margin-top: 40px;
+    }
+
+    .bottom-back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color .15s;
+    }
+
+    .bottom-back-link:hover { color: var(--text); }
+
+    .bottom-back-link:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    .bottom-back-link svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      flex-shrink: 0;
+    }
+
+    /* ─── Site footer ───────────────────────────────────────────────────── */
+    .site-footer {
+      margin-top: 80px;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .footer-inner {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+    }
+
+    .footer-cta-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .footer-cta-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .footer-meta {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    @media (min-width: 640px) {
+      .footer-meta { text-align: right; }
+    }
+
+    /* ─── Utilities ─────────────────────────────────────────────────────── */
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+    }
+
+    /* ─── Print ─────────────────────────────────────────────────────────── */
+    @media print {
+      .back-bar, .filter-section, .btn { display: none; }
+      .level-card { break-inside: avoid; box-shadow: none; border: 1px solid #ddd; }
+      .level-card.coming-soon { opacity: 1; }
+      .sessions-block { display: block !important; }
+      [data-lang] { display: flex !important; }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- Site header -->
+  <header class="site-header">
+    <a href="index.html" class="logo-mark" aria-label="LEGO House — back to home">LH</a>
+    <div>
+      <h1>LEGO Masters Academy</h1>
+      <p>LEGO House, Billund — All prices in DKK</p>
+    </div>
+  </header>
+
+  <!-- Back navigation bar -->
+  <nav class="back-bar" aria-label="Breadcrumb">
+    <div class="back-bar-inner">
+      <a href="index.html" class="back-link" aria-label="Back to Tickets and Experiences">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to Tickets
+      </a>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ─── Hero ─────────────────────────────────────────────────────────── -->
+    <section class="hero" aria-labelledby="page-title">
+      <p class="hero-label">Workshops &mdash; Add to your visit</p>
+      <h2 class="hero-title" id="page-title">LEGO Masters Academy</h2>
+      <p class="hero-subtitle">Where future LEGO Masters are made</p>
+      <p class="hero-desc">Inspired by the hit TV series, LEGO Masters Academy is a hands-on workshop experience at LEGO House. Pick your level, spend 60 minutes building under the guidance of LEGO Play Agents, and take your creation home. Whether you're building your first pond or mastering advanced S.N.O.T. techniques &mdash; there's a level for every builder.</p>
+
+      <!-- Key info strip -->
+      <div class="info-strip" role="list" aria-label="Key information">
+        <div class="info-item" role="listitem">
+          <span class="info-item-icon" aria-hidden="true">&#9201;</span>
+          <span>60 minutes per session</span>
+        </div>
+        <div class="info-sep" aria-hidden="true"></div>
+        <div class="info-item" role="listitem">
+          <span class="info-item-icon" aria-hidden="true">&#128100;</span>
+          <span>Ages 5+ (under 13 with adult)</span>
+        </div>
+        <div class="info-sep" aria-hidden="true"></div>
+        <div class="info-item" role="listitem">
+          <span class="info-item-icon" aria-hidden="true">&#127873;</span>
+          <span>Take your creation home</span>
+        </div>
+        <div class="info-sep" aria-hidden="true"></div>
+        <div class="info-item" role="listitem">
+          <span class="info-item-icon" aria-hidden="true">&#127915;</span>
+          <span>Requires entry ticket</span>
+        </div>
+        <div class="info-sep" aria-hidden="true"></div>
+        <div class="info-item" role="listitem">
+          <span class="info-item-icon" aria-hidden="true">&#128176;</span>
+          <span>From 149 DKK</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ─── Language filter ───────────────────────────────────────────────── -->
+    <section class="filter-section" aria-labelledby="filter-label">
+      <p class="filter-label" id="filter-label">Filter by language</p>
+      <div class="filter-pills" role="group" aria-label="Language filter">
+        <button class="filter-pill active" data-filter="all" aria-pressed="true">All languages</button>
+        <button class="filter-pill" data-filter="da" aria-pressed="false">&#127465;&#127472; Danish</button>
+        <button class="filter-pill" data-filter="en" aria-pressed="false">&#127468;&#127463; English</button>
+      </div>
+    </section>
+
+    <!-- ─── Levels ────────────────────────────────────────────────────────── -->
+    <section class="levels-section" aria-labelledby="levels-heading">
+      <h2 class="visually-hidden" id="levels-heading">Academy Levels</h2>
+
+      <div class="progression-list">
+
+        <!-- ── Level 1 ── -->
+        <article class="level-card" aria-labelledby="level1-title">
+          <div class="level-card-header">
+            <div class="level-card-top">
+              <div class="level-num l1" aria-label="Level 1">1</div>
+              <div class="level-card-meta">
+                <p class="level-eyebrow">Level 1 &mdash; Family Fun</p>
+                <h3 class="level-title" id="level1-title">Splash into the Bricks</h3>
+                <p class="level-subtitle">Family Fun &middot; 149 DKK</p>
+              </div>
+            </div>
+            <p class="level-desc">Design and build your own LEGO pond, complete with ducks, frogs and all sorts of strange little creatures. Experiment with creative building, bring your creations to life through interactive challenges, and learn construction techniques from LEGO House Play Agents.</p>
+            <div class="level-details">
+              <div class="level-detail-block">
+                <p class="level-detail-label">What you'll do</p>
+                <ul class="level-feature-list" aria-label="Level 1 activities">
+                  <li>Learn building techniques from Play Agents</li>
+                  <li>Build and animate your own LEGO pond creatures</li>
+                  <li>Complete interactive building challenges</li>
+                </ul>
+              </div>
+              <div class="level-detail-block">
+                <p class="level-detail-label">What you take home</p>
+                <p class="take-home-text">Your custom LEGO pond creation</p>
+              </div>
+            </div>
+          </div>
+          <div class="sessions-block" aria-label="Level 1 sessions">
+            <p class="sessions-label">Book a session</p>
+            <div class="session-row" data-lang="da" role="group" aria-label="Danish session, Level 1">
+              <span class="session-lang">
+                <span class="session-flag" aria-hidden="true">&#127465;&#127472;</span>
+                Danish Session
+              </span>
+              <span class="session-price">149<span class="session-price-suffix">DKK</span></span>
+              <a href="#" class="btn btn-primary btn-sm" aria-label="Book Level 1 Danish session">Book Now</a>
+            </div>
+            <div class="session-row" data-lang="en" role="group" aria-label="English session, Level 1">
+              <span class="session-lang">
+                <span class="session-flag" aria-hidden="true">&#127468;&#127463;</span>
+                English Session
+              </span>
+              <span class="session-price">149<span class="session-price-suffix">DKK</span></span>
+              <a href="#" class="btn btn-primary btn-sm" aria-label="Book Level 1 English session">Book Now</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Connector -->
+        <div class="level-connector" aria-hidden="true">
+          <div class="level-connector-line"></div>
+        </div>
+
+        <!-- ── Level 2 ── -->
+        <article class="level-card" aria-labelledby="level2-title">
+          <div class="level-card-header">
+            <div class="level-card-top">
+              <div class="level-num l2" aria-label="Level 2">2</div>
+              <div class="level-card-meta">
+                <p class="level-eyebrow">Level 2 &mdash; Foundational Skills</p>
+                <h3 class="level-title" id="level2-title">Build Me Up</h3>
+                <p class="level-subtitle">Foundational Skills &middot; 199 DKK</p>
+              </div>
+            </div>
+            <p class="level-desc">Upgrade your building skills by personalizing your very own LEGO minifigure. Step-by-step guidance helps you advance your model building and reach your full potential as a builder.</p>
+            <div class="level-details">
+              <div class="level-detail-block">
+                <p class="level-detail-label">What you'll do</p>
+                <ul class="level-feature-list" aria-label="Level 2 activities">
+                  <li>Design and customize a unique LEGO minifigure</li>
+                  <li>Learn step-by-step advanced building methods</li>
+                  <li>Develop your personal building style</li>
+                </ul>
+              </div>
+              <div class="level-detail-block">
+                <p class="level-detail-label">What you take home</p>
+                <p class="take-home-text">Your custom LEGO minifigure</p>
+              </div>
+            </div>
+          </div>
+          <div class="sessions-block" aria-label="Level 2 sessions">
+            <p class="sessions-label">Book a session</p>
+            <div class="session-row" data-lang="da" role="group" aria-label="Danish session, Level 2">
+              <span class="session-lang">
+                <span class="session-flag" aria-hidden="true">&#127465;&#127472;</span>
+                Danish Session
+              </span>
+              <span class="session-price">199<span class="session-price-suffix">DKK</span></span>
+              <a href="#" class="btn btn-primary btn-sm" aria-label="Book Level 2 Danish session">Book Now</a>
+            </div>
+            <div class="session-row" data-lang="en" role="group" aria-label="English session, Level 2">
+              <span class="session-lang">
+                <span class="session-flag" aria-hidden="true">&#127468;&#127463;</span>
+                English Session
+              </span>
+              <span class="session-price">199<span class="session-price-suffix">DKK</span></span>
+              <a href="#" class="btn btn-primary btn-sm" aria-label="Book Level 2 English session">Book Now</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Connector -->
+        <div class="level-connector" aria-hidden="true">
+          <div class="level-connector-line"></div>
+        </div>
+
+        <!-- ── Level 3 ── -->
+        <article class="level-card" aria-labelledby="level3-title">
+          <div class="level-card-header">
+            <div class="level-card-top">
+              <div class="level-num l3" aria-label="Level 3">3</div>
+              <div class="level-card-meta">
+                <p class="level-eyebrow">Level 3 &mdash; Advanced</p>
+                <h3 class="level-title" id="level3-title">aROUND the bricks we go</h3>
+                <p class="level-subtitle">Advanced Building &middot; 249 DKK</p>
+              </div>
+            </div>
+            <p class="level-desc">Master advanced building techniques including the legendary S.N.O.T. method (Studs Not On Top). Learn to convert 2D designs into stunning 3D creations and take home your masterpiece.</p>
+            <div class="level-details">
+              <div class="level-detail-block">
+                <p class="level-detail-label">What you'll do</p>
+                <ul class="level-feature-list" aria-label="Level 3 activities">
+                  <li>Master S.N.O.T. (Studs Not On Top) technique</li>
+                  <li>Convert 2D concept designs into 3D models</li>
+                  <li>Create an advanced LEGO masterpiece</li>
+                </ul>
+              </div>
+              <div class="level-detail-block">
+                <p class="level-detail-label">What you take home</p>
+                <p class="take-home-text">Your 3D LEGO masterpiece</p>
+              </div>
+            </div>
+          </div>
+          <div class="sessions-block" aria-label="Level 3 sessions">
+            <p class="sessions-label">Book a session</p>
+            <div class="session-row" data-lang="da" role="group" aria-label="Danish session, Level 3">
+              <span class="session-lang">
+                <span class="session-flag" aria-hidden="true">&#127465;&#127472;</span>
+                Danish Session
+              </span>
+              <span class="session-price">249<span class="session-price-suffix">DKK</span></span>
+              <a href="#" class="btn btn-primary btn-sm" aria-label="Book Level 3 Danish session">Book Now</a>
+            </div>
+            <div class="session-row" data-lang="en" role="group" aria-label="English session, Level 3">
+              <span class="session-lang">
+                <span class="session-flag" aria-hidden="true">&#127468;&#127463;</span>
+                English Session
+              </span>
+              <span class="session-price">249<span class="session-price-suffix">DKK</span></span>
+              <a href="#" class="btn btn-primary btn-sm" aria-label="Book Level 3 English session">Book Now</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Connector -->
+        <div class="level-connector" aria-hidden="true">
+          <div class="level-connector-line"></div>
+        </div>
+
+        <!-- ── Level 4 — Coming Soon ── -->
+        <article class="level-card coming-soon" aria-labelledby="level4-title" aria-describedby="level4-coming">
+          <div class="level-card-header">
+            <div class="level-card-top">
+              <div class="level-num l4" aria-label="Level 4">4</div>
+              <div class="level-card-meta">
+                <p class="level-eyebrow">Level 4 &mdash; Mastery</p>
+                <h3 class="level-title" id="level4-title">Coming 2026</h3>
+                <p class="level-subtitle">Mastery Level</p>
+                <span class="coming-soon-badge" id="level4-coming" aria-label="Coming in 2026">Coming 2026</span>
+              </div>
+            </div>
+            <p class="level-desc">Expert-level building techniques for aspiring designers and LEGO Masters competitors. The ultimate challenge awaits.</p>
+            <div class="level-details">
+              <div class="level-detail-block">
+                <p class="level-detail-label">What to expect</p>
+                <ul class="level-feature-list" aria-label="Level 4 preview">
+                  <li>Expert building techniques for advanced builders</li>
+                  <li>Challenges inspired by LEGO Masters competition</li>
+                  <li>The ultimate LEGO building experience</li>
+                </ul>
+              </div>
+              <div class="level-detail-block">
+                <p class="level-detail-label">Availability</p>
+                <p class="take-home-text" style="padding-left:0; font-size:14px; color:var(--muted);">Sessions opening later in 2026</p>
+              </div>
+            </div>
+          </div>
+          <div class="sessions-block" style="background:#F5F5F5;" aria-label="Level 4 not yet available">
+            <p class="sessions-label">Sessions</p>
+            <div style="padding: 16px; text-align:center; color:var(--muted); font-size:14px; font-weight:500;">
+              Sessions not yet available &mdash; check back later in 2026
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ─── Annual pass callout ────────────────────────────────────────────── -->
+    <aside class="annual-callout" aria-label="Annual pass discount">
+      <span class="annual-callout-icon" aria-hidden="true">&#128203;</span>
+      <div class="annual-callout-text">
+        <strong>Annual pass holders receive 25% discount through May 31, 2026</strong>
+        <p>Your annual pass discount is automatically applied at checkout.</p>
+      </div>
+    </aside>
+
+    <!-- ─── Bottom back link ───────────────────────────────────────────────── -->
+    <div class="bottom-back">
+      <a href="index.html" class="bottom-back-link" aria-label="Back to all tickets and experiences">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Back to all tickets
+      </a>
+    </div>
+
+  </main>
+
+  <!-- Site footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-cta-title">Need help choosing?</p>
+        <p class="footer-cta-sub">Our team can help you find the right ticket or package for your visit.</p>
+        <a href="#" class="btn btn-primary" aria-label="Contact LEGO House for help choosing tickets">Get in touch</a>
+      </div>
+      <div class="footer-meta">
+        <p>LEGO House, Billund, Denmark</p>
+        <p>Opening hours vary by season</p>
+        <p>All prices in DKK, incl. VAT</p>
+        <p style="margin-top:8px; font-size:12px;">legohouse.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Language filter ────────────────────────────────────────────────────
+    var filterPills = document.querySelectorAll('.filter-pill');
+
+    filterPills.forEach(function(pill) {
+      pill.addEventListener('click', function() {
+        var filter = this.dataset.filter;
+
+        // Update pill states
+        filterPills.forEach(function(p) {
+          var isActive = p.dataset.filter === filter;
+          p.classList.toggle('active', isActive);
+          p.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        });
+
+        // Show/hide session rows
+        var sessionRows = document.querySelectorAll('.session-row[data-lang]');
+        sessionRows.forEach(function(row) {
+          if (filter === 'all' || row.dataset.lang === filter) {
+            row.style.display = '';
+          } else {
+            row.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

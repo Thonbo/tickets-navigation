@@ -1,0 +1,167 @@
+{
+  "entry_tickets": [
+    {
+      "name": "Dagsbillet (Day Ticket)",
+      "prices": [
+        { "amount": 239, "currency": "DKK" },
+        { "amount": 279, "currency": "DKK" },
+        { "amount": 339, "currency": "DKK" }
+      ],
+      "description": "Full day access to LEGO House experience zones",
+      "age_restrictions": "Children under 3 years: free entry",
+      "features": ["Access to all experience zones", "Online booking available", "Pricing varies by date"]
+    },
+    {
+      "name": "Eftermiddagsbillet (Afternoon Ticket)",
+      "prices": [
+        { "amount": 169, "currency": "DKK" },
+        { "amount": 209, "currency": "DKK" },
+        { "amount": 269, "currency": "DKK" }
+      ],
+      "description": "Afternoon entry from 3 PM on days with 7 PM closing",
+      "features": ["Entry from 15:00", "Valid on select operating days"]
+    },
+    {
+      "name": "LEGO House & LEGOLAND Kombibillet (Combo Ticket)",
+      "price": { "amount": 629, "currency": "DKK" },
+      "description": "Single ticket providing access to both LEGO House and LEGOLAND park"
+    },
+    {
+      "name": "Årskort (Annual Pass)",
+      "price": { "amount": 649, "currency": "DKK" },
+      "description": "Unlimited access for one year to LEGO House",
+      "features": ["Year-round unlimited visits", "25% discount on LEGO Masters Academy through May 31, 2026"]
+    }
+  ],
+  "lego_masters_academy": [
+    {
+      "name": "Splash into the Bricks - Level 1 (Danish)",
+      "price": { "amount": 149, "currency": "DKK" },
+      "description": "Build your own LEGO pond, animate creatures, complete interactive challenges",
+      "features": ["Learn building techniques", "Take creations home", "Danish language instruction"]
+    },
+    {
+      "name": "Splash into the Bricks - Level 1 (English)",
+      "price": { "amount": 149, "currency": "DKK" },
+      "description": "Build your own LEGO pond, animate creatures, complete interactive challenges",
+      "features": ["Learn building techniques", "Take creations home", "English language instruction"]
+    },
+    {
+      "name": "Build Me Up - Level 2 (Danish)",
+      "price": { "amount": 199, "currency": "DKK" },
+      "description": "Upgrade building skills by personalizing your own LEGO minifigure",
+      "features": ["Create custom minifigure", "Take creation home"]
+    },
+    {
+      "name": "Build Me Up - Level 2 (English)",
+      "price": { "amount": 199, "currency": "DKK" },
+      "description": "Upgrade building skills by personalizing your own LEGO minifigure",
+      "features": ["Create custom minifigure", "Take creation home"]
+    },
+    {
+      "name": "aROUND the bricks we go - Level 3 (Danish)",
+      "price": { "amount": 249, "currency": "DKK" },
+      "description": "Master advanced building techniques including S.N.O.T. method",
+      "features": ["Learn S.N.O.T. (Studs Not On Top)", "Convert 2D designs to 3D creations", "Take masterpiece home"]
+    },
+    {
+      "name": "aROUND the bricks we go - Level 3 (English)",
+      "price": { "amount": 249, "currency": "DKK" },
+      "description": "Master advanced building techniques including S.N.O.T. method",
+      "features": ["Learn S.N.O.T. (Studs Not On Top)", "Convert 2D designs to 3D creations", "Take masterpiece home"]
+    }
+  ],
+  "stay_packages": [
+    {
+      "name": "Det ultimative LEGO ophold (Ultimate LEGO Stay)",
+      "price": { "amount": 2998, "currency": "DKK", "note": "For 2 adults + 2 children" },
+      "description": "Combines LEGO House, LEGOLAND Billund, and overnight accommodation",
+      "features": ["LEGO House access", "LEGOLAND Billund access", "Hotel accommodation", "Optional exclusive LEGO product add-on"]
+    },
+    {
+      "name": "LEGO House Vinterophold (Winter Stay)",
+      "price": { "amount": 2056, "currency": "DKK", "note": "For 2 adults + 2 children" },
+      "description": "Winter holiday package with LEGO House, hotel stay, and indoor pool access",
+      "features": ["LEGO House experience", "Hotel LEGOLAND accommodation", "Billund Bad indoor swimming pool access"]
+    }
+  ],
+  "premium_experiences": [
+    {
+      "name": "LEGO House Experience + Factory Visit",
+      "price": { "amount": 2495, "currency": "DKK", "note": "Per person" },
+      "description": "Full day at LEGO House with exclusive behind-the-scenes factory tour",
+      "features": ["Full day LEGO House access", "Exclusive factory access", "See LEGO brick production"]
+    },
+    {
+      "name": "LEGO House Brick Tour",
+      "price": { "amount": 20000, "currency": "DKK", "note": "Starting price" },
+      "description": "Private group experience with personal guide and exclusive Meet & Greet with LEGO designer",
+      "features": ["Private guide", "Designer Meet & Greet session", "Customizable group size"]
+    },
+    {
+      "name": "LEGO House Exclusive Designer Evening",
+      "price": { "amount": 1899, "currency": "DKK", "note": "Per person" },
+      "description": "Special evening event for LEGO Space fans",
+      "date": "April 9, 2026",
+      "features": ["LEGO Space-themed event", "Designer engagement"]
+    },
+    {
+      "name": "LEGO Fan Tour",
+      "price": { "amount": 4999, "currency": "DKK" },
+      "description": "Group tour with 25 LEGO enthusiasts from worldwide locations",
+      "features": ["Small group experience (25 people)", "Guided tours of LEGO facilities"]
+    },
+    {
+      "name": "LEGO Inside Tour",
+      "price": { "amount": 25000, "currency": "DKK" },
+      "description": "Ultimate 3-day LEGO fan experience with exclusive access to restricted areas",
+      "features": ["3-day experience", "Access to restricted facilities", "Behind-the-scenes LEGO Group tours"]
+    }
+  ],
+  "groups": [
+    {
+      "name": "Playful Tour (Group Guided Tours)",
+      "price": { "amount": 3600, "currency": "DKK", "note": "Starting price" },
+      "description": "Private guide experience learning about the home of the brick",
+      "features": ["Private guide included", "Historical storytelling"]
+    },
+    {
+      "name": "Group Tickets (20+ persons)",
+      "price": { "amount": 239, "currency": "DKK", "note": "Starting price per person" },
+      "description": "Group rates for creative and playful day at LEGO House",
+      "group_requirements": "Minimum 20 people"
+    },
+    {
+      "name": "Private Venue Rental",
+      "price": "By inquiry",
+      "description": "Entire LEGO House rental for corporate or organizational events",
+      "features": ["Full facility exclusive use", "Custom arrangements"]
+    }
+  ],
+  "school_programs": [
+    {
+      "name": "Fish Designer",
+      "price": { "amount": 3000, "currency": "DKK", "note": "Per class" },
+      "grade_level": "Grades 1-2",
+      "description": "Emotional competency building through LEGO design"
+    },
+    {
+      "name": "Story Lab",
+      "price": { "amount": 3000, "currency": "DKK", "note": "Per class" },
+      "grade_level": "Grades 4-6",
+      "description": "Social competency development through storytelling"
+    },
+    {
+      "name": "Robo Lab",
+      "price": { "amount": 3000, "currency": "DKK", "note": "Per class" },
+      "grade_level": "Grades 3-6",
+      "description": "Cognitive skill development through robotics"
+    },
+    {
+      "name": "Test Driver",
+      "price": { "amount": 3000, "currency": "DKK", "note": "Per class" },
+      "grade_level": "Grades 1-3",
+      "description": "Cognitive development through testing and engineering"
+    }
+  ]
+}

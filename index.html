@@ -1,0 +1,1784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tickets &amp; Experiences — LEGO House</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ─── Reset & base ─────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --yellow:   #FFD500;
+      --yellow-bg: #FFF9E6;
+      --red:      #E3000B;
+      --blue:     #006DB7;
+      --green:    #00A850;
+      --bg:       #F5F5F0;
+      --card:     #FFFFFF;
+      --text:     #1A1A1A;
+      --muted:    #666666;
+      --border:   #E8E8E4;
+      --shadow:   0 1px 3px rgba(0,0,0,.07), 0 4px 12px rgba(0,0,0,.06);
+      --shadow-hover: 0 4px 8px rgba(0,0,0,.1), 0 12px 24px rgba(0,0,0,.08);
+      --radius:   12px;
+      --nav-h:    60px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── Skip link ─────────────────────────────────────────────────────── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 16px;
+      background: var(--text);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 1000;
+      text-decoration: none;
+      transition: top .15s;
+    }
+    .skip-link:focus { top: 8px; }
+
+    /* ─── Site header ───────────────────────────────────────────────────── */
+    .site-header {
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .logo-mark {
+      width: 44px;
+      height: 44px;
+      background: var(--yellow);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+      letter-spacing: -.5px;
+    }
+
+    .site-header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .site-header p {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    /* ─── Sticky category nav ────────────────────────────────────────────── */
+    .cat-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--card);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .cat-nav::-webkit-scrollbar { display: none; }
+
+    .cat-nav-inner {
+      display: flex;
+      gap: 4px;
+      height: var(--nav-h);
+      align-items: center;
+      min-width: max-content;
+    }
+
+    .cat-pill {
+      display: inline-flex;
+      align-items: center;
+      height: 36px;
+      padding: 0 16px;
+      border-radius: 100px;
+      border: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: background .15s ease-out, color .15s ease-out;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .cat-pill:hover {
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    .cat-pill.active {
+      background: var(--yellow);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .cat-pill:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 2px;
+    }
+
+    /* ─── Main layout ───────────────────────────────────────────────────── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    /* ─── Section scaffold ──────────────────────────────────────────────── */
+    .section {
+      padding: 56px 0 0;
+    }
+
+    .section-header {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .section-sub {
+      font-size: 15px;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    /* ─── Badges / tags ─────────────────────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      height: 22px;
+      padding: 0 8px;
+      border-radius: 100px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .03em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .badge-yellow   { background: var(--yellow); color: var(--text); }
+    .badge-blue     { background: #E0F0FF; color: var(--blue); }
+    .badge-green    { background: #DFFAEC; color: #007D3C; }
+    .badge-red      { background: #FFECEC; color: var(--red); }
+    .badge-purple   { background: #F0ECFF; color: #5B3FBF; }
+    .badge-neutral  { background: #EBEBEB; color: #444; }
+
+    /* ─── Price display ─────────────────────────────────────────────────── */
+    .price {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .price-prefix {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-right: 2px;
+    }
+
+    .price-suffix {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--muted);
+      margin-left: 4px;
+    }
+
+    /* ─── Feature list ──────────────────────────────────────────────────── */
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 12px;
+    }
+
+    .feature-list li {
+      font-size: 14px;
+      color: var(--muted);
+      padding-left: 18px;
+      position: relative;
+    }
+
+    .feature-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 7px;
+      width: 8px;
+      height: 8px;
+      background: var(--yellow);
+      border-radius: 2px;
+    }
+
+    /* ─── CTA button ────────────────────────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 48px;
+      padding: 0 24px;
+      border-radius: 100px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      transition: transform .15s ease-out, box-shadow .15s ease-out;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: 3px;
+    }
+
+    .btn-primary {
+      background: var(--yellow);
+      color: var(--text);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(255,213,0,.5);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg);
+      border-color: #ccc;
+    }
+
+    .btn-full { width: 100%; }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SECTION 1 — TICKETS
+    ═══════════════════════════════════════════════════════════════════════ */
+
+    .tickets-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+      .tickets-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (min-width: 900px) {
+      .tickets-grid {
+        grid-template-columns: 1.3fr 1fr 1fr;
+        grid-template-rows: auto auto;
+      }
+    }
+
+    /* ── Day Ticket — hero card ── */
+    .card-day-ticket {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 32px;
+      transition: box-shadow .2s ease-out, transform .2s ease-out;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      border-top: 4px solid var(--yellow);
+    }
+
+    @media (min-width: 900px) {
+      .card-day-ticket {
+        grid-column: 1;
+        grid-row: 1 / 3;
+        padding: 36px;
+      }
+    }
+
+    .card-day-ticket:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .card-day-ticket .card-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: #999;
+    }
+
+    .card-day-ticket .card-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .card-day-ticket .card-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    .card-day-ticket .price { font-size: 40px; }
+
+    .price-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* ── Secondary ticket cards ── */
+    .card-ticket {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      transition: box-shadow .2s ease-out, transform .2s ease-out;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .card-ticket:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .card-ticket .card-name {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .card-ticket .card-desc {
+      font-size: 14px;
+      color: var(--muted);
+      flex: 1;
+    }
+
+    .card-ticket .price { font-size: 26px; }
+
+    /* ── Annual pass — tertiary compact ── */
+    .card-annual {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: box-shadow .2s ease-out, transform .2s ease-out;
+    }
+
+    @media (min-width: 900px) {
+      .card-annual {
+        grid-column: 2 / 4;
+      }
+    }
+
+    .card-annual:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .card-annual .card-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .card-annual .card-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .card-annual .card-info { flex: 1; }
+
+    .card-annual .card-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+      flex-shrink: 0;
+    }
+
+    .card-annual .price { font-size: 24px; }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SECTION 2 — ACADEMY
+    ═══════════════════════════════════════════════════════════════════════ */
+
+    .section-academy {
+      background: var(--yellow-bg);
+      margin: 56px -24px 0;
+      padding: 56px 24px;
+    }
+
+    .section-academy .section-header { margin-bottom: 32px; }
+
+    .academy-progression {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
+      position: relative;
+    }
+
+    @media (min-width: 640px) {
+      .academy-progression {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .academy-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      transition: box-shadow .2s ease-out, transform .2s ease-out;
+      position: relative;
+    }
+
+    .academy-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .level-badge {
+      width: 40px;
+      height: 40px;
+      border-radius: 10px;
+      background: var(--yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      font-weight: 800;
+      color: var(--text);
+      flex-shrink: 0;
+    }
+
+    .level-badge.l2 { background: #FFB300; }
+    .level-badge.l3 { background: #FF8C00; }
+
+    .academy-card-top {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .academy-card-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .academy-card-level-name {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .academy-card-desc {
+      font-size: 14px;
+      color: var(--muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .lang-pills {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .lang-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      height: 26px;
+      padding: 0 10px;
+      border-radius: 100px;
+      background: var(--bg);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    .academy-requires {
+      font-size: 12px;
+      color: var(--muted);
+      padding-top: 4px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Progression arrows between cards — desktop only */
+    @media (min-width: 640px) {
+      .academy-progression {
+        align-items: center;
+      }
+
+      .academy-card::after {
+        content: '';
+        position: absolute;
+        right: -12px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 0;
+        height: 0;
+        border-top: 8px solid transparent;
+        border-bottom: 8px solid transparent;
+        border-left: 10px solid var(--yellow);
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .academy-card:last-child::after { display: none; }
+    }
+
+    /* ── Academy teaser card ── */
+    .academy-teaser-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border-left: 4px solid var(--yellow);
+      padding: 28px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      transition: box-shadow .2s ease-out, transform .2s ease-out;
+    }
+
+    @media (min-width: 640px) {
+      .academy-teaser-card {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 32px;
+      }
+    }
+
+    .academy-teaser-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .academy-teaser-body {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex: 1;
+    }
+
+    .academy-teaser-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.2;
+    }
+
+    .academy-teaser-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.5;
+      max-width: 520px;
+    }
+
+    .academy-teaser-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .academy-mini-badge {
+      display: inline-flex;
+      align-items: center;
+      height: 26px;
+      padding: 0 12px;
+      border-radius: 100px;
+      background: var(--yellow-bg);
+      border: 1px solid #FFEBB3;
+      font-size: 12px;
+      font-weight: 600;
+      color: #8A6500;
+    }
+
+    .academy-teaser-price {
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .academy-teaser-action {
+      flex-shrink: 0;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SECTION 3 — STAYS
+    ═══════════════════════════════════════════════════════════════════════ */
+
+    .stays-grid {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+      .stays-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .card-stay {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: box-shadow .2s ease-out, transform .2s ease-out;
+      border-top: 3px solid var(--blue);
+    }
+
+    .card-stay:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .card-stay .card-name {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .card-stay .card-desc {
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .card-stay .price { font-size: 30px; }
+
+    .stay-note {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SECTION 4 — PREMIUM
+    ═══════════════════════════════════════════════════════════════════════ */
+
+    .premium-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .accordion-item {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      transition: box-shadow .2s ease-out;
+    }
+
+    .accordion-item.open {
+      box-shadow: var(--shadow-hover);
+    }
+
+    .accordion-trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      text-align: left;
+      transition: background .15s ease-out;
+      min-height: 72px;
+    }
+
+    .accordion-trigger:hover { background: #FAFAFA; }
+
+    .accordion-trigger:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: -2px;
+    }
+
+    .accordion-trigger-left {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .accordion-trigger-text { min-width: 0; }
+
+    .accordion-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      line-height: 1.3;
+    }
+
+    .accordion-teaser {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .accordion-trigger-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-shrink: 0;
+    }
+
+    .accordion-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .accordion-price small {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+      display: block;
+      text-align: right;
+    }
+
+    .accordion-chevron {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform .2s ease-out, background .15s;
+      flex-shrink: 0;
+    }
+
+    .accordion-item.open .accordion-chevron {
+      transform: rotate(180deg);
+      background: var(--yellow);
+    }
+
+    .accordion-chevron svg {
+      width: 14px;
+      height: 14px;
+      stroke: var(--text);
+      fill: none;
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .accordion-body {
+      display: none;
+      padding: 0 24px 24px;
+    }
+
+    .accordion-item.open .accordion-body { display: block; }
+
+    .accordion-body-inner {
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .accordion-full-desc {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .accordion-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--blue);
+      background: #E0F0FF;
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       SECTION 5 — GROUPS & SCHOOLS
+    ═══════════════════════════════════════════════════════════════════════ */
+
+    .tab-bar {
+      display: flex;
+      gap: 4px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 24px;
+    }
+
+    .tab-btn {
+      height: 44px;
+      padding: 0 20px;
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--muted);
+      cursor: pointer;
+      transition: color .15s, border-color .15s;
+      margin-bottom: -1px;
+    }
+
+    .tab-btn:hover { color: var(--text); }
+
+    .tab-btn[aria-selected="true"] {
+      color: var(--text);
+      font-weight: 600;
+      border-bottom-color: var(--yellow);
+    }
+
+    .tab-btn:focus-visible {
+      outline: 2px solid var(--blue);
+      outline-offset: -2px;
+    }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Group rows ── */
+    .group-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .group-row {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: box-shadow .2s ease-out, transform .2s ease-out;
+    }
+
+    .group-row:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-1px);
+    }
+
+    .group-row-text { flex: 1; }
+
+    .group-row-name {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .group-row-desc {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .group-row-price {
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    .group-row-price .price { font-size: 20px; }
+    .group-row-price .price-note { font-size: 12px; white-space: nowrap; }
+
+    /* ── School cards ── */
+    .school-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: 1fr;
+    }
+
+    @media (min-width: 640px) {
+      .school-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    .school-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: box-shadow .2s ease-out, transform .2s ease-out;
+    }
+
+    .school-card:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translateY(-2px);
+    }
+
+    .school-card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .school-card-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .school-card-desc {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .school-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+    }
+
+    .school-price {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .school-price-note {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════════════════════════════════ */
+
+    .site-footer {
+      margin-top: 80px;
+      background: var(--card);
+      border-top: 1px solid var(--border);
+    }
+
+    .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .footer-inner {
+        flex-direction: row;
+        align-items: flex-start;
+        justify-content: space-between;
+      }
+    }
+
+    .footer-cta-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .footer-cta-sub {
+      font-size: 14px;
+      color: var(--muted);
+      margin-bottom: 14px;
+    }
+
+    .footer-meta {
+      font-size: 13px;
+      color: var(--muted);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    @media (min-width: 640px) {
+      .footer-meta { text-align: right; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       PRINT
+    ═══════════════════════════════════════════════════════════════════════ */
+
+    @media print {
+      .cat-nav, .site-header { position: static; }
+      .accordion-body { display: block !important; }
+      .tab-panel { display: block !important; }
+      .card-day-ticket, .card-ticket, .card-annual,
+      .card-stay, .accordion-item, .group-row, .school-card {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid #ddd;
+      }
+      .section-academy { background: #FFF9E6; }
+    }
+
+    /* ═══════════════════════════════════════════════════════════════════════
+       UTILITIES
+    ═══════════════════════════════════════════════════════════════════════ */
+    .spacer { flex: 1; }
+    .visually-hidden {
+      position: absolute;
+      width: 1px; height: 1px;
+      overflow: hidden;
+      clip: rect(0,0,0,0);
+      white-space: nowrap;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- Site header -->
+  <header class="site-header">
+    <div class="logo-mark" aria-hidden="true">LH</div>
+    <div>
+      <h1>Tickets &amp; Experiences</h1>
+      <p>LEGO House, Billund — All prices in DKK</p>
+    </div>
+  </header>
+
+  <!-- Sticky category navigation -->
+  <nav class="cat-nav" aria-label="Ticket categories">
+    <div class="cat-nav-inner">
+      <a href="#tickets"  class="cat-pill active" data-section="tickets">Tickets</a>
+      <a href="#academy"  class="cat-pill" data-section="academy">Academy</a>
+      <a href="#stays"    class="cat-pill" data-section="stays">Stays</a>
+      <a href="#premium"  class="cat-pill" data-section="premium">Premium</a>
+      <a href="#groups"   class="cat-pill" data-section="groups">Groups &amp; Schools</a>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ─── SECTION 1: TICKETS ─────────────────────────────────────────── -->
+    <section id="tickets" class="section" aria-labelledby="tickets-heading">
+      <div class="section-header">
+        <p class="section-label">Entry</p>
+        <h2 class="section-title" id="tickets-heading">Tickets</h2>
+        <p class="section-sub">Full-day access to all experience zones</p>
+      </div>
+
+      <div class="tickets-grid">
+
+        <!-- Day Ticket — hero -->
+        <article class="card-day-ticket" aria-labelledby="day-ticket-name">
+          <div>
+            <p class="card-eyebrow">Most popular</p>
+            <h3 class="card-name" id="day-ticket-name">Day Ticket</h3>
+          </div>
+          <div>
+            <div class="price">
+              <span class="price-prefix">from</span>239
+              <span class="price-suffix">DKK</span>
+            </div>
+            <p class="price-note">Price varies by date &middot; Children under 3 free</p>
+          </div>
+          <p class="card-desc">Full day access to LEGO House experience zones. Online booking available.</p>
+          <ul class="feature-list">
+            <li>Access to all experience zones</li>
+            <li>Online booking available</li>
+            <li>Pricing varies by date (239 / 279 / 339 DKK)</li>
+          </ul>
+          <div style="margin-top:auto; padding-top: 8px;">
+            <a href="#" class="btn btn-primary btn-full" aria-label="Book Day Ticket">Book Now</a>
+          </div>
+        </article>
+
+        <!-- Afternoon Ticket -->
+        <article class="card-ticket" aria-labelledby="afternoon-ticket-name">
+          <div>
+            <h3 class="card-name" id="afternoon-ticket-name">Afternoon Ticket</h3>
+            <p class="card-desc">Entry from 15:00 on days with 7 PM closing. Valid on select operating days.</p>
+          </div>
+          <div>
+            <div class="price">
+              <span class="price-prefix">from</span>169
+              <span class="price-suffix">DKK</span>
+            </div>
+            <p class="price-note">169 / 209 / 269 DKK depending on date</p>
+          </div>
+          <a href="#" class="btn btn-outline" aria-label="Book Afternoon Ticket">Book Afternoon</a>
+        </article>
+
+        <!-- Combo Ticket -->
+        <article class="card-ticket" aria-labelledby="combo-ticket-name">
+          <div>
+            <div style="display:flex; gap:8px; align-items:center; margin-bottom:8px;">
+              <span class="badge badge-blue">2 parks, 1 ticket</span>
+            </div>
+            <h3 class="card-name" id="combo-ticket-name">Combo Ticket</h3>
+            <p class="card-desc">Single ticket for both LEGO House and LEGOLAND Billund park.</p>
+          </div>
+          <div>
+            <div class="price">
+              629<span class="price-suffix">DKK</span>
+            </div>
+          </div>
+          <a href="#" class="btn btn-outline" aria-label="Book Combo Ticket — LEGO House plus LEGOLAND">Book Combo</a>
+        </article>
+
+        <!-- Annual Pass — compact row -->
+        <article class="card-annual" aria-labelledby="annual-pass-name">
+          <div class="card-info">
+            <h3 class="card-name" id="annual-pass-name">Annual Pass</h3>
+            <p class="card-desc">Unlimited visits for one year. 25% off Academy workshops through May 2026.</p>
+          </div>
+          <div class="card-right">
+            <div class="price">649<span class="price-suffix">DKK</span></div>
+            <span class="badge badge-green">Best value for locals</span>
+            <a href="#" class="btn btn-outline" style="height:40px; font-size:14px;" aria-label="Buy Annual Pass">Buy Pass</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ─── SECTION 2: ACADEMY ─────────────────────────────────────────── -->
+    <section id="academy" class="section-academy" aria-labelledby="academy-heading">
+      <div style="max-width:1100px; margin:0 auto;">
+        <div class="section-header">
+          <p class="section-label">Workshops</p>
+          <h2 class="section-title" id="academy-heading">LEGO Masters Academy</h2>
+          <p class="section-sub">Inspired by the hit TV series &mdash; hands-on workshops for all skill levels</p>
+        </div>
+
+        <!-- Teaser card linking to academy.html -->
+        <article class="academy-teaser-card" aria-labelledby="academy-teaser-name">
+          <div class="academy-teaser-body">
+            <h3 class="academy-teaser-name" id="academy-teaser-name">LEGO Masters Academy</h3>
+            <p class="academy-teaser-desc">Inspired by the hit TV series &mdash; hands-on building workshops where you create, learn, and take your masterpiece home.</p>
+            <div class="academy-teaser-badges">
+              <span class="academy-mini-badge">4 Levels</span>
+              <span class="academy-mini-badge">60 min sessions</span>
+              <span class="academy-mini-badge">Ages 5+</span>
+            </div>
+            <p class="academy-teaser-price">From 149 DKK &middot; Requires entry ticket</p>
+          </div>
+          <div class="academy-teaser-action">
+            <a href="academy.html" class="btn btn-primary" aria-label="Explore all LEGO Masters Academy levels">Explore Academy Levels &rarr;</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ─── SECTION 3: STAYS ───────────────────────────────────────────── -->
+    <section id="stays" class="section" aria-labelledby="stays-heading">
+      <div class="section-header">
+        <p class="section-label">Packages</p>
+        <h2 class="section-title" id="stays-heading">Stay &amp; Play</h2>
+        <p class="section-sub">Make it a getaway &middot; Prices for 2 adults + 2 children</p>
+      </div>
+
+      <div class="stays-grid">
+
+        <!-- Ultimate Stay -->
+        <article class="card-stay" aria-labelledby="ultimate-stay-name">
+          <div>
+            <h3 class="card-name" id="ultimate-stay-name">Ultimate LEGO Stay</h3>
+          </div>
+          <div>
+            <div class="price">2,998<span class="price-suffix">DKK</span></div>
+            <p class="stay-note">For 2 adults + 2 children</p>
+          </div>
+          <p class="card-desc">The complete LEGO experience combining LEGO House, LEGOLAND Billund, and overnight accommodation.</p>
+          <ul class="feature-list">
+            <li>LEGO House access</li>
+            <li>LEGOLAND Billund access</li>
+            <li>Hotel accommodation</li>
+            <li>Optional exclusive LEGO product add-on</li>
+          </ul>
+          <div style="margin-top:auto; padding-top:8px;">
+            <a href="#" class="btn btn-primary btn-full" aria-label="Book Ultimate LEGO Stay package">Book Stay</a>
+          </div>
+        </article>
+
+        <!-- Winter Stay -->
+        <article class="card-stay" aria-labelledby="winter-stay-name">
+          <div>
+            <div style="display:flex; gap:8px; margin-bottom:10px;">
+              <span class="badge badge-blue">Seasonal</span>
+            </div>
+            <h3 class="card-name" id="winter-stay-name">LEGO House Winter Stay</h3>
+          </div>
+          <div>
+            <div class="price">2,056<span class="price-suffix">DKK</span></div>
+            <p class="stay-note">For 2 adults + 2 children</p>
+          </div>
+          <p class="card-desc">Winter holiday package with LEGO House experience, hotel stay, and indoor pool access.</p>
+          <ul class="feature-list">
+            <li>LEGO House experience</li>
+            <li>Hotel LEGOLAND accommodation</li>
+            <li>Billund Bad indoor swimming pool access</li>
+          </ul>
+          <div style="margin-top:auto; padding-top:8px;">
+            <a href="#" class="btn btn-primary btn-full" aria-label="Book Winter Stay package">Book Winter Stay</a>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ─── SECTION 4: PREMIUM ─────────────────────────────────────────── -->
+    <section id="premium" class="section" aria-labelledby="premium-heading">
+      <div class="section-header">
+        <p class="section-label">Exclusive</p>
+        <h2 class="section-title" id="premium-heading">Exclusive Experiences</h2>
+        <p class="section-sub">For the ultimate LEGO fan</p>
+      </div>
+
+      <div class="premium-list" role="list">
+
+        <!-- Designer Evening — 1,899 DKK -->
+        <article class="accordion-item" role="listitem">
+          <button
+            class="accordion-trigger"
+            aria-expanded="false"
+            aria-controls="acc-designer"
+            id="acc-designer-btn"
+          >
+            <div class="accordion-trigger-left">
+              <span class="badge badge-purple">Exclusive</span>
+              <div class="accordion-trigger-text">
+                <p class="accordion-name">LEGO House Exclusive Designer Evening</p>
+                <p class="accordion-teaser">Special evening event for LEGO Space fans &mdash; April 9, 2026</p>
+              </div>
+            </div>
+            <div class="accordion-trigger-right">
+              <div class="accordion-price">
+                1,899
+                <small>DKK per person</small>
+              </div>
+              <div class="accordion-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+          </button>
+          <div class="accordion-body" id="acc-designer" role="region" aria-labelledby="acc-designer-btn">
+            <div class="accordion-body-inner">
+              <p class="accordion-full-desc">An exclusive evening event crafted for dedicated LEGO Space fans. Engage directly with LEGO designers in an intimate setting — far from the daytime crowds.</p>
+              <span class="accordion-date">April 9, 2026</span>
+              <ul class="feature-list">
+                <li>LEGO Space-themed event program</li>
+                <li>Direct engagement with LEGO designers</li>
+                <li>Exclusive evening access to LEGO House</li>
+              </ul>
+              <div>
+                <a href="#" class="btn btn-primary" aria-label="Book LEGO House Exclusive Designer Evening">Book Designer Evening</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Factory Visit — 2,495 DKK -->
+        <article class="accordion-item" role="listitem">
+          <button
+            class="accordion-trigger"
+            aria-expanded="false"
+            aria-controls="acc-factory"
+            id="acc-factory-btn"
+          >
+            <div class="accordion-trigger-left">
+              <span class="badge badge-purple">Exclusive</span>
+              <div class="accordion-trigger-text">
+                <p class="accordion-name">LEGO House Experience + Factory Visit</p>
+                <p class="accordion-teaser">Full day at LEGO House with exclusive behind-the-scenes factory tour</p>
+              </div>
+            </div>
+            <div class="accordion-trigger-right">
+              <div class="accordion-price">
+                2,495
+                <small>DKK per person</small>
+              </div>
+              <div class="accordion-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+          </button>
+          <div class="accordion-body" id="acc-factory" role="region" aria-labelledby="acc-factory-btn">
+            <div class="accordion-body-inner">
+              <p class="accordion-full-desc">A rare opportunity to see where LEGO bricks are actually made. Spend a full day exploring LEGO House, then go behind the scenes for exclusive access to the LEGO factory — a restricted area almost no one ever sees.</p>
+              <ul class="feature-list">
+                <li>Full day LEGO House access</li>
+                <li>Exclusive behind-the-scenes factory access</li>
+                <li>See LEGO brick production up close</li>
+              </ul>
+              <div>
+                <a href="#" class="btn btn-primary" aria-label="Book LEGO House and Factory Visit experience">Book Factory Visit</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Fan Tour — 4,999 DKK -->
+        <article class="accordion-item" role="listitem">
+          <button
+            class="accordion-trigger"
+            aria-expanded="false"
+            aria-controls="acc-fan"
+            id="acc-fan-btn"
+          >
+            <div class="accordion-trigger-left">
+              <span class="badge badge-purple">Exclusive</span>
+              <div class="accordion-trigger-text">
+                <p class="accordion-name">LEGO Fan Tour</p>
+                <p class="accordion-teaser">Small group tour with 25 LEGO enthusiasts from worldwide locations</p>
+              </div>
+            </div>
+            <div class="accordion-trigger-right">
+              <div class="accordion-price">
+                4,999
+                <small>DKK</small>
+              </div>
+              <div class="accordion-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+          </button>
+          <div class="accordion-body" id="acc-fan" role="region" aria-labelledby="acc-fan-btn">
+            <div class="accordion-body-inner">
+              <p class="accordion-full-desc">Join a curated group of 25 passionate LEGO enthusiasts from across the globe for a guided tour experience of LEGO facilities. A rare community experience for the most dedicated fans.</p>
+              <ul class="feature-list">
+                <li>Small group experience (25 people maximum)</li>
+                <li>Guided tours of LEGO facilities</li>
+                <li>International fan community</li>
+              </ul>
+              <div>
+                <a href="#" class="btn btn-primary" aria-label="Book LEGO Fan Tour">Book Fan Tour</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Brick Tour — 20,000 DKK -->
+        <article class="accordion-item" role="listitem">
+          <button
+            class="accordion-trigger"
+            aria-expanded="false"
+            aria-controls="acc-brick"
+            id="acc-brick-btn"
+          >
+            <div class="accordion-trigger-left">
+              <span class="badge badge-purple">Exclusive</span>
+              <div class="accordion-trigger-text">
+                <p class="accordion-name">LEGO House Brick Tour</p>
+                <p class="accordion-teaser">Private group experience with personal guide and designer Meet &amp; Greet</p>
+              </div>
+            </div>
+            <div class="accordion-trigger-right">
+              <div class="accordion-price">
+                20,000
+                <small>DKK starting price</small>
+              </div>
+              <div class="accordion-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+          </button>
+          <div class="accordion-body" id="acc-brick" role="region" aria-labelledby="acc-brick-btn">
+            <div class="accordion-body-inner">
+              <p class="accordion-full-desc">The ultimate private group experience. Your own personal guide leads you through LEGO House, culminating in an exclusive Meet &amp; Greet session with a LEGO designer. Customizable for any group size.</p>
+              <ul class="feature-list">
+                <li>Dedicated private guide</li>
+                <li>Exclusive LEGO designer Meet &amp; Greet session</li>
+                <li>Customizable group size</li>
+              </ul>
+              <div>
+                <a href="#" class="btn btn-primary" aria-label="Book LEGO House Brick Tour">Book Brick Tour</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- Inside Tour — 25,000 DKK -->
+        <article class="accordion-item" role="listitem">
+          <button
+            class="accordion-trigger"
+            aria-expanded="false"
+            aria-controls="acc-inside"
+            id="acc-inside-btn"
+          >
+            <div class="accordion-trigger-left">
+              <span class="badge badge-red">Ultimate</span>
+              <div class="accordion-trigger-text">
+                <p class="accordion-name">LEGO Inside Tour</p>
+                <p class="accordion-teaser">3-day experience with access to restricted areas of the LEGO Group</p>
+              </div>
+            </div>
+            <div class="accordion-trigger-right">
+              <div class="accordion-price">
+                25,000
+                <small>DKK</small>
+              </div>
+              <div class="accordion-chevron" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+              </div>
+            </div>
+          </button>
+          <div class="accordion-body" id="acc-inside" role="region" aria-labelledby="acc-inside-btn">
+            <div class="accordion-body-inner">
+              <p class="accordion-full-desc">The most exclusive LEGO experience in the world. Over three full days, you will gain access to restricted facilities and behind-the-scenes areas of the LEGO Group that no standard tour can reach. Reserved for the most passionate fans on the planet.</p>
+              <ul class="feature-list">
+                <li>3-day immersive experience</li>
+                <li>Access to restricted LEGO Group facilities</li>
+                <li>Exclusive behind-the-scenes tours</li>
+                <li>Once-in-a-lifetime bucket list experience</li>
+              </ul>
+              <div>
+                <a href="#" class="btn btn-primary" aria-label="Book LEGO Inside Tour — the ultimate 3-day experience">Book Inside Tour</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- ─── SECTION 5: GROUPS & SCHOOLS ───────────────────────────────── -->
+    <section id="groups" class="section" aria-labelledby="groups-heading">
+      <div class="section-header">
+        <p class="section-label">Organised visits</p>
+        <h2 class="section-title" id="groups-heading">Groups &amp; Schools</h2>
+        <p class="section-sub">Tailored options for organised visits</p>
+      </div>
+
+      <!-- Tab bar -->
+      <div class="tab-bar" role="tablist" aria-label="Groups and Schools tabs">
+        <button
+          class="tab-btn"
+          role="tab"
+          aria-selected="true"
+          aria-controls="tab-groups"
+          id="tab-groups-btn"
+        >Groups</button>
+        <button
+          class="tab-btn"
+          role="tab"
+          aria-selected="false"
+          aria-controls="tab-schools"
+          id="tab-schools-btn"
+        >Schools</button>
+      </div>
+
+      <!-- Groups panel -->
+      <div id="tab-groups" class="tab-panel active" role="tabpanel" aria-labelledby="tab-groups-btn">
+        <div class="group-list">
+
+          <article class="group-row" aria-labelledby="group-tickets-name">
+            <div class="group-row-text">
+              <h3 class="group-row-name" id="group-tickets-name">Group Tickets</h3>
+              <p class="group-row-desc">Group rates for a creative and playful day at LEGO House. Minimum 20 people.</p>
+            </div>
+            <div class="group-row-price">
+              <div class="price">239<span class="price-suffix" style="font-size:13px;">DKK</span></div>
+              <p class="price-note">per person, from</p>
+            </div>
+            <a href="#" class="btn btn-outline" style="height:40px; font-size:14px; flex-shrink:0;" aria-label="Book group tickets for 20 or more people">Book Group</a>
+          </article>
+
+          <article class="group-row" aria-labelledby="playful-tour-name">
+            <div class="group-row-text">
+              <h3 class="group-row-name" id="playful-tour-name">Playful Tour</h3>
+              <p class="group-row-desc">Private guide experience. Learn the history and stories behind the home of the brick.</p>
+            </div>
+            <div class="group-row-price">
+              <div class="price">3,600<span class="price-suffix" style="font-size:13px;">DKK</span></div>
+              <p class="price-note">starting price</p>
+            </div>
+            <a href="#" class="btn btn-outline" style="height:40px; font-size:14px; flex-shrink:0;" aria-label="Book Playful Tour with private guide">Book Tour</a>
+          </article>
+
+          <article class="group-row" aria-labelledby="venue-rental-name">
+            <div class="group-row-text">
+              <h3 class="group-row-name" id="venue-rental-name">Private Venue Rental</h3>
+              <p class="group-row-desc">Exclusive rental of the entire LEGO House for corporate or organisational events. Custom arrangements available.</p>
+            </div>
+            <div class="group-row-price">
+              <div style="font-size:16px; font-weight:700; color:var(--text);">Price on request</div>
+            </div>
+            <a href="#" class="btn btn-outline" style="height:40px; font-size:14px; flex-shrink:0;" aria-label="Enquire about Private Venue Rental">Enquire</a>
+          </article>
+
+        </div>
+      </div>
+
+      <!-- Schools panel -->
+      <div id="tab-schools" class="tab-panel" role="tabpanel" aria-labelledby="tab-schools-btn">
+        <div class="school-grid">
+
+          <article class="school-card" aria-labelledby="fish-designer-name">
+            <div class="school-card-top">
+              <h3 class="school-card-name" id="fish-designer-name">Fish Designer</h3>
+              <span class="badge badge-green">Grades 1–2</span>
+            </div>
+            <p class="school-card-desc">Emotional competency building through LEGO design. Students explore empathy and creativity.</p>
+            <div class="school-card-footer">
+              <div>
+                <div class="school-price">3,000 DKK</div>
+                <div class="school-price-note">per class</div>
+              </div>
+              <a href="#" class="btn btn-outline" style="height:36px; font-size:13px;" aria-label="Book Fish Designer school program">Book Program</a>
+            </div>
+          </article>
+
+          <article class="school-card" aria-labelledby="test-driver-name">
+            <div class="school-card-top">
+              <h3 class="school-card-name" id="test-driver-name">Test Driver</h3>
+              <span class="badge badge-green">Grades 1–3</span>
+            </div>
+            <p class="school-card-desc">Cognitive development through testing and engineering. Students design, test, and iterate solutions.</p>
+            <div class="school-card-footer">
+              <div>
+                <div class="school-price">3,000 DKK</div>
+                <div class="school-price-note">per class</div>
+              </div>
+              <a href="#" class="btn btn-outline" style="height:36px; font-size:13px;" aria-label="Book Test Driver school program">Book Program</a>
+            </div>
+          </article>
+
+          <article class="school-card" aria-labelledby="robo-lab-name">
+            <div class="school-card-top">
+              <h3 class="school-card-name" id="robo-lab-name">Robo Lab</h3>
+              <span class="badge badge-green">Grades 3–6</span>
+            </div>
+            <p class="school-card-desc">Cognitive skill development through robotics. Students program and build automated LEGO creations.</p>
+            <div class="school-card-footer">
+              <div>
+                <div class="school-price">3,000 DKK</div>
+                <div class="school-price-note">per class</div>
+              </div>
+              <a href="#" class="btn btn-outline" style="height:36px; font-size:13px;" aria-label="Book Robo Lab school program">Book Program</a>
+            </div>
+          </article>
+
+          <article class="school-card" aria-labelledby="story-lab-name">
+            <div class="school-card-top">
+              <h3 class="school-card-name" id="story-lab-name">Story Lab</h3>
+              <span class="badge badge-green">Grades 4–6</span>
+            </div>
+            <p class="school-card-desc">Social competency development through storytelling. Students build narrative scenes and present their creations.</p>
+            <div class="school-card-footer">
+              <div>
+                <div class="school-price">3,000 DKK</div>
+                <div class="school-price-note">per class</div>
+              </div>
+              <a href="#" class="btn btn-outline" style="height:36px; font-size:13px;" aria-label="Book Story Lab school program">Book Program</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Site footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div>
+        <p class="footer-cta-title">Need help choosing?</p>
+        <p class="footer-cta-sub">Our team can help you find the right ticket or package for your visit.</p>
+        <a href="#" class="btn btn-primary" aria-label="Contact LEGO House for help choosing tickets">Get in touch</a>
+      </div>
+      <div class="footer-meta">
+        <p>LEGO House, Billund, Denmark</p>
+        <p>Opening hours vary by season</p>
+        <p>All prices in DKK, incl. VAT</p>
+        <p style="margin-top:8px; font-size:12px;">legohouse.com</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // ─── Accordion ─────────────────────────────────────────────────────────
+    document.querySelectorAll('.accordion-trigger').forEach(function(trigger) {
+      trigger.addEventListener('click', function() {
+        var item = this.closest('.accordion-item');
+        var isOpen = item.classList.contains('open');
+
+        // Close all first
+        document.querySelectorAll('.accordion-item').forEach(function(el) {
+          el.classList.remove('open');
+          el.querySelector('.accordion-trigger').setAttribute('aria-expanded', 'false');
+        });
+
+        // Toggle clicked
+        if (!isOpen) {
+          item.classList.add('open');
+          this.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // ─── Tab switching ──────────────────────────────────────────────────────
+    document.querySelectorAll('.tab-btn').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var panelId = this.getAttribute('aria-controls');
+
+        // Update buttons
+        document.querySelectorAll('.tab-btn').forEach(function(b) {
+          b.setAttribute('aria-selected', 'false');
+        });
+        this.setAttribute('aria-selected', 'true');
+
+        // Update panels
+        document.querySelectorAll('.tab-panel').forEach(function(panel) {
+          panel.classList.remove('active');
+        });
+        document.getElementById(panelId).classList.add('active');
+      });
+
+      // Keyboard: arrow keys for tab navigation
+      btn.addEventListener('keydown', function(e) {
+        var tabs = Array.from(document.querySelectorAll('.tab-btn'));
+        var idx  = tabs.indexOf(this);
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          tabs[(idx + 1) % tabs.length].focus();
+          tabs[(idx + 1) % tabs.length].click();
+        }
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          tabs[(idx - 1 + tabs.length) % tabs.length].focus();
+          tabs[(idx - 1 + tabs.length) % tabs.length].click();
+        }
+      });
+    });
+
+    // ─── Sticky nav — active pill on scroll ────────────────────────────────
+    var sections = ['tickets', 'academy', 'stays', 'premium', 'groups'];
+    var navHeight = 60;
+    var pills = document.querySelectorAll('.cat-pill');
+
+    function setActive(id) {
+      pills.forEach(function(pill) {
+        var isActive = pill.dataset.section === id;
+        pill.classList.toggle('active', isActive);
+      });
+    }
+
+    // Smooth scroll for pill clicks
+    pills.forEach(function(pill) {
+      pill.addEventListener('click', function(e) {
+        e.preventDefault();
+        var targetId = this.dataset.section;
+
+        // Academy section is inside a full-bleed wrapper — find the section element
+        var target = document.getElementById(targetId);
+        if (!target) return;
+
+        var top = target.getBoundingClientRect().top + window.scrollY - navHeight - 8;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+        setActive(targetId);
+      });
+    });
+
+    // Intersection Observer
+    var observerOptions = {
+      root: null,
+      rootMargin: '-' + (navHeight + 20) + 'px 0px -60% 0px',
+      threshold: 0
+    };
+
+    var observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.id;
+          setActive(id);
+        }
+      });
+    }, observerOptions);
+
+    sections.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  </script>
+</body>
+</html>
